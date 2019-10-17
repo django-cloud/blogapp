@@ -1,0 +1,25 @@
+{% extends 'base-layout.html'%}
+
+{% block content%}
+
+{% if blogs%}
+
+{% for blog in blogs%}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="{% url 'accounts:show_user_profile' blog.author.id %}">{{ blog.author }}</a>
+            <small class="text-muted">{{ blog.created_date }}</small>
+            </div>
+            <h2><a class="article-title" href="/{{blog.get_link}}">{{ blog.title }}</a></h2>
+            <p class="article-content">{{ blog.snippet }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+{% else %}
+<h2>No blogs available!</h2>
+<a href="{% url 'blog:create_blog' %}" class="btn btn-outline-info">Create Now</a>
+{% endif %}
+
+{% endblock %}

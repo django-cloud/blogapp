@@ -1,0 +1,53 @@
+{% extends 'base-layout.html' %}
+
+{% block content%}
+<div class="content-section">
+    <div>
+    <h1 class="text-center">{{blog.title}}</h1>
+    <!-- code to show delete btn  -->
+    {% if authorised %}
+    <a href="{% url 'blog:delete_blog_confirmation' blog_id=blog.pk %}" class="btn btn-danger btn-sm mt-1 mb-1">Delete</a>
+    <a href="{% url 'blog:edit_blog' blog_id=blog.pk %}" class="btn btn-secondary btn-sm mt-1 mb-1">Edit</a>
+    {% endif %}
+    </div>
+
+    <!-- the url is an inbuild property of blog.models.image -->
+    <img src="{{blog.image.url}}" class="img-thumbnail">
+    <div class="font-italic">
+    <br>
+    <p class="blog-body mt-1 mb-1">{{blog.body}}</p>
+    </div>
+    <br>
+    <small class="font-weight-bold">Created on: {{blog.created_date}}</small>
+    <br>
+    <small class="font-weight-bold">Created by:-
+        <a href="{% url 'accounts:show_user_profile' blog.author.id %}">{{blog.author}}</a>
+    </small>
+    <br>
+    <div class="form-group">
+    <a href="{% url 'blog:comment_blog' blog_id=blog.pk %}" class="btn btn-success mt-3">comment</a>
+    </div>
+</div>
+<div class="content-section">
+    {% if reviews%}
+    <legend class="font-weight-bold">Comments</legend>
+    {% for review in reviews %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+            <h5>By:-
+            <a class="mr-2" href="{% url 'accounts:show_user_profile' review.author.id %}">{{ review.author.username }}</a>
+            </h5>
+            {% if review.author == user %}
+            <a href="{% url 'blog:delete_blog_review' blog_review_id=review.pk %}" class="btn btn-danger btn-sm delete-comment">Delete</a>
+            {% endif %}
+            <p>{{ review.comment }}</p>
+            <small>{{ review.created_date }}</small>
+        </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <legend class="font-weight-bold">No comments yet!</legend>
+    {% endif%}
+</div>
+{%endblock%}

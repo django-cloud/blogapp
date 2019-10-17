@@ -1,0 +1,32 @@
+{% extends 'base-layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="content-section">
+        <form action="{% url 'accounts:login_user' %}" method='POST'>
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">
+                    Login!
+                </legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-info">
+                    Login
+                </button>
+            </div>
+            <!-- Redirecting after login -->
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
+            <!--  -->
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Do you need an account!
+                <a href="{% url 'accounts:signup_user' %}" class="ml-2">Create</a>
+            </small>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base-layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+<h1>Create a new Blog....</h1>
+    <!-- In the below form enctype is used because we are posting image files using form -->
+    <form action="{% url 'blog:create_blog' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Create Blog" class="btn btn-primary btn-lg btn-block btn-success">
+    </form>
+</div>
+
+{% endblock %}

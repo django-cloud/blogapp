@@ -1,0 +1,10 @@
+{% extends 'base-layout.html' %}
+
+{% block content %}
+    <h2>You have been logged out!</h2>
+    <div class="border-top pt-3">
+        <h4>
+            <a href="{% url 'accounts:login_user' %}" class="btn btn-outline-info">Login Again!</a>
+        </h4>
+    </div>
+{% endblock %}
