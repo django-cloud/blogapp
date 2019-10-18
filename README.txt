@@ -16,6 +16,10 @@ To run it follow these steps:-
 4. Go to the given(displayed in cmd) url
 5. Enjoy
 
+Default superuser details are:-
+username = admin
+password = admin
+
 Packages used are:-
 1. django
 2. pillow
